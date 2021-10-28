@@ -45,17 +45,7 @@ class TaskController extends Controller
     public function show($id)
     {
         $tasks = Task::findOrFail($id);
-
         return response()->json($tasks,200);
-       /* if (!$tasks)
-		{
-			// Se devuelve un array errors con los errores encontrados y cabecera HTTP 404.
-			// En code podríamos indicar un código de error personalizado de nuestra aplicación si lo deseamos.
-            return response()->json(['status'=>'404','data'=>"No hay registros"],404);
-		}*/
-
-		//return response()->json(['status'=>'200','data'=>$tasks],200);
-		//return response()->json(['status'=>'ok','data'=>$fabricante->aviones],200);
     }
 
     /**
