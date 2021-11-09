@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\TaskController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TaskController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,11 +26,27 @@ Route::get('tasks2', function(Request $request){
 });*/
 
 //Route::resource('tasks', TaskController::class);
-Route::prefix('tasks')->group(function () {
-    Route::get('/',[ TaskController::class, 'index']);
-    Route::post('/',[ TaskController::class, 'store']);
-    Route::delete('/{id}',[ TaskController::class, 'destroy']);
-    Route::get('/{id}',[ TaskController::class, 'show']);
-    Route::put('/{id}',[ TaskController::class, 'update']);
+//Route::prefix('tasks')->group(function () {
+Route::group([
+        'middleware' => 'api',
+        'prefix' => 'tasks'
+    ], function ($router) {
+    Route::get('/',[ TaskController::class, 'index'])->middleware('auth');
+    Route::post('/',[ TaskController::class, 'store'])->middleware('auth');
+    Route::delete('/{id}',[ TaskController::class, 'destroy'])->middleware('auth');
+    Route::get('/{id}',[ TaskController::class, 'show'])->middleware('auth');
+    Route::put('/{id}',[ TaskController::class, 'update'])->middleware('auth');
 });
 
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'auth'
+], function ($router) {
+
+    Route::post('login', [AuthController::class, 'login']);
+    Route::post('logout', [AuthController::class, 'logout']);
+    Route::post('refresh', [AuthController::class, 'refresh']);
+    Route::get('user-profile', [AuthController::class, 'userProfile']);
+    Route::post('register', [AuthController::class, 'register']);
+
+});
