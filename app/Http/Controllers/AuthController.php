@@ -18,7 +18,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login','register']]);
+        $this->middleware('auth:api', ['except' => ['login']]);
     }
 
     /**
@@ -40,8 +40,12 @@ class AuthController extends Controller
         if (! $token = auth()->attempt($req->validated())) {
             return response()->json(['error' => 'Nombre de usuario o contraseña incorrectas'], 401);
         }
-
-        return $this->respondWithToken($token);
+        if (auth()->user()->estado == "inactivo") {
+            return response()->json(['error' => 'Usuario Inactivo'], 401);
+        }
+                  
+    return $this->respondWithToken($token);
+        
     /*
         $credentials = request(['email', 'password']);
 
@@ -102,12 +106,15 @@ class AuthController extends Controller
         ]);
     }
 
-    public function register(Request $request)
+/*
+   public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required|string|email|max:100|unique:users',
             'password' => 'required|string|min:6',
+            'estado' => 'required|string',
+            'rol_id' => 'required',
         ]);
         if($validator->fails()){
             return response()->json($validator->errors()->toJson(),400);
@@ -123,4 +130,5 @@ class AuthController extends Controller
             'user' => $user
         ], 201);
     }
+*/
 }

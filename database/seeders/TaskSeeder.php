@@ -4,72 +4,82 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Task;
-use Illuminate\Support\Facades\DB;
-use Exception;
 
 class TaskSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    /**
-     * Registros insertados, una lista strings que son el id del registro
-     *
-     * @var array<string>
-     */
-    private $insertados=[];
-    /**
-     * Registros fallidos, una lista de arrays de la forma ['id' => xxx, 'message' => yyy]
-     *
-     * @var array<array{id:string,message:string}>
-     */
-    private $fallidos=[];
-
     public function run()
     {
         $task_data = [
-            ['nombre'=> 'Juan',
-            'descripcion' => 'Bien o no',
-            'estado' => 'Mal'],
-            ['nombre'=> 'Andres',
-            'descripcion' => 'Bien o no',
-            'estado' => 'Bien'],
-            ['nombre'=> 'Camilo',
-            'descripcion' => 'Bien o no',
-            'estado' => 'Mal'],
-            ['nombre'=> 'Eduardo',
-            'descripcion' => 'Bien o no',
-            'estado' => 'Bien'],
+            ['nombre'=> 'Guardar sus pertenencias',
+            'descripcion' => 'Aqui va la descripción',
+            'estado' => 'sin asignar',
+            'user_id' => null],
+
+            ['nombre'=> 'Lavar la ropa',
+            'descripcion' => 'Aqui va la descripción',
+            'estado' => 'sin asignar',
+            'user_id' =>'1'],
+
+            ['nombre'=> 'Doblar y guardar la ropa limpia',
+            'descripcion' => 'Aqui va la descripción',
+            'estado' => 'sin asignar',
+            'user_id' => null],
+
+            ['nombre'=> 'Pasar la aspiradora, barrer, quitar el polvo',
+            'descripcion' => 'Aqui va la descripción',
+            'estado' => 'sin asignar',
+            'user_id' => null],
+
+            ['nombre'=> 'Poner la mesa',
+            'descripcion' => 'Aqui va la descripción',
+            'estado' => 'sin asignar',
+            'user_id' => null],
+
+            ['nombre'=> 'Recoger la mesa',
+            'descripcion' => 'Aqui va la descripción',
+            'estado' => 'sin asignar',
+            'user_id' => null],
+
+            ['nombre'=> 'Lavar y guardar los platos',
+            'descripcion' => 'Aqui va la descripción',
+            'estado' => 'sin asignar',
+            'user_id' => null],
+
+            ['nombre'=> 'Alimentar, sacar a caminar a las mascotas de la familia; limpiar las jaulas de las aves y limpiar los areneros',
+            'descripcion' => 'Aqui va la descripción',
+            'estado' => 'sin asignar',
+            'user_id' => null],
+
+            ['nombre'=> 'Trapear los pisos',
+            'descripcion' => 'Aqui va la descripción',
+            'estado' => 'sin asignar',
+            'user_id' => null],
+
+            ['nombre'=> 'Limpiar el lavabo, el inodoro, la tina del baño, la ducha',
+            'descripcion' => 'Aqui va la descripción',
+            'estado' => 'sin asignar',
+            'user_id' => null],
+
+            ['nombre'=> 'Preparar sus propias loncheras para la escuela',
+            'descripcion' => 'Aqui va la descripción',
+            'estado' => 'sin asignar',
+            'user_id' => null],
+
+            ['nombre'=> ' Hacer el jardín',
+            'descripcion' => 'Aqui va la descripción',
+            'estado' => 'sin asignar',
+            'user_id' => null],
+
+            ['nombre'=> 'Lavar el auto familiar',
+            'descripcion' => 'Aqui va la descripción',
+            'estado' => 'sin asignar',
+            'user_id' => null],
         ];
 
-        //$task = new Task($task_data);
-        //$task->save();
-
         foreach ($task_data as $record) {
-            $this->attemptInsertion($record);
-        }
-        dump([
-            'insertados'=>$this->insertados,
-            'fallidos'=>$this->fallidos
-        ]);
-
-    }
-    private function attemptInsertion(array $record):void
-    {
-        try {
             $task = new Task($record);
             $task->save();
-
-            //DB::table('tasks')->insert($record);
-            $this->insertados[]=$record['nombre'];
-        } catch (Exception $exception) {
-            $this->fallidos[]=[
-                'id'=>$record['nombre'],
-                'message'=>$exception->getMessage()
-            ];
-            
         }
     }
+
 }

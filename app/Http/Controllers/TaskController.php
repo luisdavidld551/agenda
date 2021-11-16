@@ -14,7 +14,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::all();
+        $tasks = Task::with('user')->get();
         return response()->json($tasks,200);
     }
 
@@ -44,7 +44,7 @@ class TaskController extends Controller
      */
     public function show($id)
     {
-        $tasks = Task::findOrFail($id);
+        $tasks = Task::with('user')->findOrFail($id);
         return response()->json($tasks,200);
     }
 
@@ -75,3 +75,4 @@ class TaskController extends Controller
         return response()->json($tasks,200);
     }
 }
+//php artisan make:migration create_tasks_users_table
