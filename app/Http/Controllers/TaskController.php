@@ -74,5 +74,11 @@ class TaskController extends Controller
         $tasks = "Tarea con el id: ${id} ha sido eliminada";
         return response()->json($tasks,200);
     }
+
+    public function taskAsignadas()
+    {
+        $tasks = Task::orderBy('estado','asc')->with('user')->where('user_id', auth()->user()->id)->get();
+        return response()->json($tasks,200);
+    }
 }
 //php artisan make:migration create_tasks_users_table
