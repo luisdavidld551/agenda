@@ -15,8 +15,11 @@ class CORS
      * @return mixed
      */
     public function handle(Request $request, Closure $next) {
-        header('Acess-Control-Allow-Origin: *');
-        header('Acess-Control-Allow-Origin: Content-type, X-Auth-Token, Authorization, Origin');
+
+        $request->header('Acess-Control-Allow-Origin:','*');
+        $request->header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+        $request->header('Acess-Control-Allow-Headers: Content-type, X-Auth-Token, Authorization');
+
         return $next($request);
     }
 }

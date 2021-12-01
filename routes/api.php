@@ -28,8 +28,8 @@ Route::get('tasks2', function(Request $request){
 });*/
 
 //Route::resource('tasks', TaskController::class);
-//Route::prefix('tasks')->group(function () {
-Route::group([ 'middleware' => 'role:Administrador','prefix' => 'tasks'], function () {
+//Route::prefix('tasks')->group(function () { 'middleware' => 'role:Administrador',
+Route::group(['prefix' => 'tasks'], function () {
     Route::get('/',[ TaskController::class, 'index']);//->middleware('auth');
     Route::post('/',[ TaskController::class, 'store']);//->middleware('auth');
     Route::delete('/{id}',[ TaskController::class, 'destroy']);//->middleware('auth');
